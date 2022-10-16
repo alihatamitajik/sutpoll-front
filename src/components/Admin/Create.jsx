@@ -19,9 +19,12 @@ import {
     TextField, FormHelperText
 } from "@mui/material";
 import {DatePicker} from "@mui/x-date-pickers";
-import {axiosPrivate, CREATE_POLL_URL} from "../../api/axios";
+import { CREATE_POLL_URL} from "../../api/axios";
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 function Create() {
+
+    const axiosPrivate = useAxiosPrivate();
 
     const [data, setData] = React.useState({
         title: '',
@@ -57,7 +60,11 @@ function Create() {
     const onSubmit = async () => {
         if(!checkRequiredFields())
             return
-        const response = await axiosPrivate.post(CREATE_POLL_URL, JSON.stringify(data))
+        console.log(JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}));
+        const response = await axiosPrivate.post(CREATE_POLL_URL, JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}))
+            .catch((err) => {
+                console.log(err?.config)
+            })
         console.log(response)
     }
 
