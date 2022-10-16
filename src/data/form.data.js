@@ -1,5 +1,5 @@
 // Copyright (c) 2022 Ali Hatami
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -14,33 +14,33 @@ export const Fields = {
         logo: UilAt,
         required: true,
         props: {
-            type:"email", 
+            type:"email",
             name:"email",
             id:"email",
-            placeholder:"رایان‌نامه", 
+            placeholder:"رایان‌نامه",
             style: {
                 direction: "ltr"
             }
         }
     },
-    studentNumber: {
+    student_number: {
         logo: UilUniversity,
         required: true,
         props: {
-            type:"text", 
-            name:"studentNumber",
+            type:"text",
+            name:"student_number",
             id:"studentNumber",
             placeholder:"شماره دانشجویی"
         }
     },
-    password: {
+    national_id: {
         logo: UilPadlock,
         required: true,
         props: {
-            type:"password", 
-            name:"password",
-            id:"password",
-            placeholder:"گذرواژه", 
+            type:"password",
+            name:"national_id",
+            id:"nationalId",
+            placeholder:"کد ملی",
             style: {
                 direction: "ltr"
             }

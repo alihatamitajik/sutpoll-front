@@ -1,5 +1,5 @@
 // Copyright (c) 2022 Ali Hatami
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -10,8 +10,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import From from '../Form/Form'
 import './Login.css'
 import { ReactComponent as LoginHeader } from '../../imgs/LoginHeader.svg'
-import axios, { LOGIN_URL } from '../../api/axios'
 import useAuth from '../../hooks/useAuth';
+import axios from 'axios'
+import {urls} from "../../api/urls";
+
 
 function Login() {
 
@@ -27,11 +29,7 @@ function Login() {
         let formData = Object.fromEntries(new FormData(e.target))
 
         try {
-            const response = await axios.post(LOGIN_URL, 
-                JSON.stringify(formData),
-                {
-                    headers: {'Content-Type': 'application/json'}
-                })
+            const response = await axios.post(urls.login(), formData)
 
             const token = response?.data?.token;
             const role = response?.data?.role;
@@ -61,18 +59,18 @@ function Login() {
         draggable
         pauseOnHover
         theme="light"/>
-    
+
     <div className="Login">
         <LoginHeader />
         <div className="formContainer">
             <h1 className="title">صفا آوردید!</h1>
-            <From requiredFields={["studentNumber", "password"]} onSubmit={handleSubmit} button={
+            <From requiredFields={["student_number", "national_id"]} onSubmit={handleSubmit} button={
                 <button className="button">ورود</button>
             }/>
         </div>
     </div>
     </>
-    
+
   )
 }
 

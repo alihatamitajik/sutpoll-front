@@ -1,5 +1,5 @@
 // Copyright (c) 2022 Ali Hatami
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -7,17 +7,17 @@ import { Fields } from "../data/form.data";
 
 
 const Validators = {
-    email: (input) => {        
+    email: (input) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(input)) {
             return "لطفا یک رایان‌نامه معتبر وارد کنید"
         }
         return ""
     },
-    password: (input) => {
+    national_id: (input) => {
         const isNonWhiteSpace = /^\S*$/;
         if (!isNonWhiteSpace.test(input)) {
-            return "گذرواژه نباید \"فضای سفید\" داشته باشد.";
+            return "کد ملی نباید \"فضای سفید\" داشته باشد.";
         }
 
         // const isContainsUppercase = /^(?=.*[A-Z]).*$/;
@@ -47,7 +47,7 @@ const Validators = {
         // }
         return "";
     },
-    studentNumber: (input) => {
+    student_number: (input) => {
         /* TODO: Student Number Verification */
 
         return ""
