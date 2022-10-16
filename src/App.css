@@ -15,7 +15,8 @@
   --alert-red:  rgb(228, 83, 83);
   --primary: blue;
   --secondary: red;
-  --font: Vazirmatn;
+  --font: Vazirmatn, sans-serif;
+  --toastify-font-family: var(--font)!important;
 }
 
 .App {
@@ -24,6 +25,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Vazirmatn, sans-serif;
+  font-family: var(--font);
   direction: rtl;
 }

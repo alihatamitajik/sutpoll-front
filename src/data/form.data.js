@@ -23,13 +23,13 @@ export const Fields = {
             }
         }
     },
-    stdNum: {
+    studentNumber: {
         logo: UilUniversity,
         required: true,
         props: {
             type:"text", 
-            name:"stdNum",
-            id:"stdNum",
+            name:"studentNumber",
+            id:"studentNumber",
             placeholder:"شماره دانشجویی"
         }
     },

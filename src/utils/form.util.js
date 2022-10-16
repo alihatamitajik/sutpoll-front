@@ -47,7 +47,7 @@ const Validators = {
         // }
         return "";
     },
-    stdNum: (input) => {
+    studentNumber: (input) => {
         /* TODO: Student Number Verification */
 
         return ""
