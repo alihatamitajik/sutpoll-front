@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useLocation } from 'react-router-dom'
 
@@ -57,18 +57,6 @@ function Login() {
     }
 
   return (
-    <>
-    <ToastContainer position="bottom-left"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"/>
-    
     <div className="Login">
         <LoginHeader />
         <div className="formContainer">
@@ -78,8 +66,6 @@ function Login() {
             }/>
         </div>
     </div>
-    </>
-    
   )
 }
 
