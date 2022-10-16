@@ -14,10 +14,10 @@ const Validators = {
         }
         return ""
     },
-    national_id: (input) => {
+    password: (input) => {
         const isNonWhiteSpace = /^\S*$/;
         if (!isNonWhiteSpace.test(input)) {
-            return "کد ملی نباید \"فضای سفید\" داشته باشد.";
+            return "گذرواژه نباید \"فضای سفید\" داشته باشد.";
         }
 
         // const isContainsUppercase = /^(?=.*[A-Z]).*$/;
@@ -47,7 +47,7 @@ const Validators = {
         // }
         return "";
     },
-    student_number: (input) => {
+    studentNumber: (input) => {
         /* TODO: Student Number Verification */
 
         return ""
@@ -59,13 +59,13 @@ export function verify(name, value) {
     let error = ""
     if (!Fields[name].required) {
         if (value.trim() !== '') {
-        error = Validators[name](value);
+            error = Validators[name](value);
         }
     } else {
         if (value.trim() === '') {
-        error = "لازم است.";
+            error = "لازم است.";
         } else {
-        error = Validators[name](value);
+            error = Validators[name](value);
         }
     }
     return error;

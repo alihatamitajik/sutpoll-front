@@ -23,24 +23,24 @@ export const Fields = {
             }
         }
     },
-    student_number: {
+    studentNumber: {
         logo: UilUniversity,
         required: true,
         props: {
             type:"text",
-            name:"student_number",
+            name:"studentNumber",
             id:"studentNumber",
             placeholder:"شماره دانشجویی"
         }
     },
-    national_id: {
+    password: {
         logo: UilPadlock,
         required: true,
         props: {
             type:"password",
-            name:"national_id",
-            id:"nationalId",
-            placeholder:"کد ملی",
+            name:"password",
+            id:"password",
+            placeholder:"گذرواژه",
             style: {
                 direction: "ltr"
             }

@@ -57,7 +57,7 @@ function Create() {
     const onSubmit = async () => {
         if(!checkRequiredFields())
             return
-        const response = await axiosPrivate(CREATE_POLL_URL, JSON.stringify(data))
+        const response = await axiosPrivate.post(CREATE_POLL_URL, JSON.stringify(data))
         console.log(response)
     }
 
