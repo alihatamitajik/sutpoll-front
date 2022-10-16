@@ -3,13 +3,18 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { useCookies } from 'react-cookie';
 
 const AuthContext = createContext({});
 
-
 export const AuthProvider = ({children}) => {
-    const [auth, setAuth] = useState({});
+    const [ cookies, setCookies] = useCookies(['auth']);
+    const [auth, setAuth] = useState(cookies.auth? cookies.auth: {});
+
+    useEffect(() => {
+        setCookies('auth', auth, {path: "/"})
+    }, [auth])
 
     return (
         <AuthContext.Provider value={{auth, setAuth}}>

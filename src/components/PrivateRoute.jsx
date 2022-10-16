@@ -11,13 +11,11 @@ function PrivateRoute({authorizedRoles}) {
     const { auth } = useAuth();
     const { location } = useLocation();
 
-    console.log(auth);
-
     return (
         auth?.role?.find(role => authorizedRoles?.includes(role))
             ? <Outlet />
-            : auth?.username
-                ? <Navigate tp="/unauthorized" state={{from: location}} replace />
+            : auth?.studentNumber
+                ? <Navigate to="/unauthorized" state={{from: location}} replace />
                 : <Navigate to="/login" state={{from: location}} replace />
     )
 }

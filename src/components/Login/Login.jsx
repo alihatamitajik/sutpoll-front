@@ -28,7 +28,7 @@ function Login() {
 
         try {
             const response = await axios.post(LOGIN_URL, 
-                JSON.stringify(formData),
+                JSON.stringify({student_number: formData.studentNumber, national_id: formData.password} ),
                 {
                     headers: {'Content-Type': 'application/json'}
                 })

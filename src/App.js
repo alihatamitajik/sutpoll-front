@@ -9,6 +9,7 @@ import Create from './components/Admin/Create';
 import Manage from './components/Admin/Manage';
 import PrivateRoute from './components/PrivateRoute';
 import Unauthorized from './components/Unauthorized';
+import useAuth from './hooks/useAuth';
 
 function App() {
   return (
@@ -28,8 +29,8 @@ function App() {
 
         {/* Admin Routes */}
         <Route element={<PrivateRoute authorizedRoles={["admin"]}/>}>
-          <Route dash="admin" element={<Admin />}>
-            <Route path="/admin" element={<></>} />
+          <Route path="admin" element={<Admin />}>
+            <Route index element={<></>} />
             <Route path="create" element={<Create />} />
             <Route path="manage/:slug" element={<Manage />} />
           </Route>
@@ -42,6 +43,10 @@ function App() {
 export default App;
 
 const Layout = () => {
+  const {auth} = useAuth();
+
+  console.log(auth);
+
   return (
     <div className='App'>
       <Outlet />
