@@ -5,3 +5,25 @@
  * https://opensource.org/licenses/MIT
  */
 
+:root {
+  --background: linear-gradient(105deg, #a8edea 0%, #fed6e3 100%);
+  --back-secondary: rgba(255, 255, 255, 0.54);
+  --neutral: #888;
+  --hover: #444;
+  --focus: black;
+  --err: red;
+  --alert-red:  rgb(228, 83, 83);
+  --primary: blue;
+  --secondary: red;
+  --font: Vazirmatn;
+}
+
+.App {
+  background: var(--background);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Vazirmatn, sans-serif;
+  direction: rtl;
+}
