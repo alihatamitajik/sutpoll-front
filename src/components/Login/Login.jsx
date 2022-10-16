@@ -3,19 +3,23 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import React, { useContext } from 'react'
-import From from '../Form/Form'
 import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
+import From from '../Form/Form'
 import './Login.css'
 import { ReactComponent as LoginHeader } from '../../imgs/LoginHeader.svg'
-import AuthContext from '../../contexts/AuthProvider'
 import axios, { LOGIN_URL } from '../../api/axios'
+import useAuth from '../../hooks/useAuth';
 
 function Login() {
 
-    const { setAuth } = useContext(AuthContext);
+    const { auth, setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -29,15 +33,16 @@ function Login() {
                     headers: {'Content-Type': 'application/json'}
                 })
 
-            console.log(response?.data)
             const token = response?.data?.token;
             const role = response?.data?.role;
-            setAuth({username: formData.username, token, role})
+            setAuth({studentNumber: formData.studentNumber, token, role: [role]})
+            navigate(from, {replace: true});
         } catch (err) {
+            console.log(err);
             if (!err?.response) {
                 toast.error("سرور مورد نظر در حال حاضر قادر به پاسخگویی نمی‌باشد :)")
-            } else if (err?.error) {
-                toast.error(err?.error)
+            } else if (err?.response?.data?.error) {
+                toast.error(err?.response?.data?.error)
             } else {
                 toast.error("خطا! فعلا کنسله. به دولوپر مراجعه نمایید.")
             }
