@@ -3,15 +3,44 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { urls } from '../../api/urls';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import Load from '../Load/Load';
+
+import './Polls.css'
+import PollsList from './PollsList';
+
+function Polls({redirectTo}) {
+
+  const axiosPrivate = useAxiosPrivate();
+
+  const [polls, setPolls] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currPage, setCurrPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(10);
 
 
-function Polls() {
+  useEffect(()=> {
+    const fetchPosts = async () => {
+      setLoading(true);
+      const response = await axiosPrivate.get(urls.allPolls(currPage, postPerPage));
+      console.log(response?.data);
+      setLoading(false);
+    }
+
+    fetchPosts();
+  }, [currPage])
+
+
   return (
-    <div>
-        Polls List Here
-        <Outlet />
+    <div className="Polls">
+        <h1>رای‌گیری‌ها</h1>
+        <div className="listContainer">
+          {loading
+            ? <Load />
+            :<PollsList />}
+        </div>
     </div>
   )
 }

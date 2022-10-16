@@ -2,7 +2,6 @@ import './App.css';
 import Login from './components/Login/Login';
 import { Outlet, Routes, Route } from 'react-router-dom';
 import Oops from './components/Oops';
-import Polls from './components/Polls/Polls';
 import PollPage from './components/PollPage/PollPage';
 import Admin from './components/Admin/Admin';
 import Create from './components/Admin/Create';
@@ -10,6 +9,7 @@ import Manage from './components/Admin/Manage';
 import PrivateRoute from './components/PrivateRoute';
 import Unauthorized from './components/Unauthorized';
 import useAuth from './hooks/useAuth';
+import Home from './components/Home/Home';
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
 
         {/* protected routes */}
         <Route element={<PrivateRoute authorizedRoles={["admin", "student"]}/>}>
-          <Route path="/" element={<Polls />}>
+          <Route path="/" element={<Home />}>
             <Route path="polls/:slug" element={<PollPage />}/>
           </Route>
         </Route>

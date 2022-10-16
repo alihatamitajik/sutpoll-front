@@ -5,23 +5,25 @@
 
 import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import From from '../Form/Form'
 import './Login.css'
 import { ReactComponent as LoginHeader } from '../../imgs/LoginHeader.svg'
-import axios, { LOGIN_URL } from '../../api/axios'
+import axios from '../../api/axios'
 import useAuth from '../../hooks/useAuth';
-import { useState } from 'react';
+import { urls } from '../../api/urls';
 
 function Login() {
 
     const { auth, setAuth } = useAuth();
-    const [ loading, setLoading ] = useState();
+    
 
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state?.from?.pathname || "/";
+    console.log(location);
+
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -31,7 +33,7 @@ function Login() {
         const id = toast.loading("در حال ورود ...")
 
         try {
-            const response = await axios.post(LOGIN_URL, 
+            const response = await axios.post(urls.login(), 
                 JSON.stringify({student_number: formData.studentNumber, national_id: formData.password} ),
                 {
                     headers: {'Content-Type': 'application/json'}

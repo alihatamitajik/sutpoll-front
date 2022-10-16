@@ -5,18 +5,9 @@
 
 import axios from 'axios';
 
-const BASE_URL = 'https://polls.taha7900.ir/api';
-
-export const LOGIN_URL = '/auth/login';
-export const POLLS_LIST_URL = '/poll/list';
-export const CREATE_POLL_URL = '/poll/create';
-
-export default axios.create({
-    baseURL: BASE_URL
-})
+export default axios.create()
 
 export const axiosPrivate =  axios.create({
-    baseURL: BASE_URL,
     headers: {'Content-Type': 'application/json'}
 })
 

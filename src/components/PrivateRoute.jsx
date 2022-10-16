@@ -9,7 +9,7 @@ import useAuth from '../hooks/useAuth'
 
 function PrivateRoute({authorizedRoles}) {
     const { auth } = useAuth();
-    const { location } = useLocation();
+    const location = useLocation();
 
     return (
         auth?.role?.find(role => authorizedRoles?.includes(role))

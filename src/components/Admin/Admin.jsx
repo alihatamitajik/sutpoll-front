@@ -5,14 +5,17 @@
 
 import React from 'react';
 import {Outlet} from 'react-router-dom';
+import { redirects } from '../../api/urls';
+import Polls from '../Polls/Polls';
 
 import './Admin.css'
 
 function Admin() {
     return (
-        <>
-            <Outlet/>
-        </>
+        <div className="Admin">
+            <Polls redirectTo={redirects.manage_poll}/>
+            <Outlet />
+        </div>
     )
 }
 

@@ -17,6 +17,8 @@
   --secondary: red;
   --font: Vazirmatn, sans-serif;
   --toastify-font-family: var(--font)!important;
+  --loading: rgba(0, 0, 0, 0.2);
+  --load-spinner: #fff
 }
 
 .App {
@@ -28,3 +30,4 @@
   font-family: var(--font);
   direction: rtl;
 }
+

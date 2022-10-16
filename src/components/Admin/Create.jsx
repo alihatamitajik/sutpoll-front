@@ -21,6 +21,7 @@ import {
 import {DatePicker} from "@mui/x-date-pickers";
 import { CREATE_POLL_URL} from "../../api/axios";
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { urls } from '../../api/urls';
 
 function Create() {
 
@@ -61,7 +62,7 @@ function Create() {
         if(!checkRequiredFields())
             return
         console.log(JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}));
-        const response = await axiosPrivate.post(CREATE_POLL_URL, JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}))
+        const response = await axiosPrivate.post(urls.createPoll(), JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}))
             .catch((err) => {
                 console.log(err?.config)
             })

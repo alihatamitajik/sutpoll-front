@@ -5,3 +5,24 @@
  * https://opensource.org/licenses/MIT
  */
 
+.Polls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px;
+    align-items: center;
+
+}
+
+.listContainer {
+    margin: 15px;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.PollsList {
+    height: 100%;
+    background: blue;
+}
