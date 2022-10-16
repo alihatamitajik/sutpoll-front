@@ -24,17 +24,17 @@ function App() {
             <Route path="polls/:slug" element={<PollPage />}/>
           </Route>
         </Route>
-        
+
 
         {/* Admin Routes */}
-        <Route element={<PrivateRoute authorizedRoles={["admin"]}/>}>
-          <Route dash="admin" element={<Admin />}>
+        {/*<Route element={<PrivateRoute authorizedRoles={["admin"]}/>}>*/}
+          <Route path="admin" element={<Admin />}>
             <Route path="/admin" element={<></>} />
             <Route path="create" element={<Create />} />
             <Route path="manage/:slug" element={<Manage />} />
           </Route>
         </Route>
-      </Route>
+      {/*</Route>*/}
     </Routes>
   );
 }

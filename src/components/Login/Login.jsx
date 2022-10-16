@@ -30,7 +30,6 @@ function Login() {
 
         try {
             const response = await axios.post(urls.login(), formData)
-
             const token = response?.data?.token;
             const role = response?.data?.role;
             setAuth({studentNumber: formData.studentNumber, token, role: [role]})
@@ -65,7 +64,9 @@ function Login() {
         <div className="formContainer">
             <h1 className="title">صفا آوردید!</h1>
             <From requiredFields={["student_number", "national_id"]} onSubmit={handleSubmit} button={
-                <button className="button">ورود</button>
+                <button className="button">
+                    ورود
+                </button>
             }/>
         </div>
     </div>
