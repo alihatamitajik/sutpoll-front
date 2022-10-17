@@ -64,7 +64,7 @@ function PollItem({slug, redirectTo}) {
           :Date.now() < Date.parse(data.access_time)
               ? <span className='badge' style={{background: "gray"}}>آغاز نشده</span>
               : Date.now() > Date.parse(data.end_time)
-                ? <span className='badge' style={{background: "lightcoral"}}>به پایان رسیده</span>
+                ? <span className='badge' style={{background: "lightcoral"}}>منقضی شده</span>
                 : <span className='badge' style={{background: "lightgreen"}}>در حال برگزاری</span>
             }
     </div>

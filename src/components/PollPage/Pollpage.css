@@ -5,3 +5,44 @@
  * https://opensource.org/licenses/MIT
  */
 
+.PollPage {
+    margin: 15px;
+    padding: 15px;
+    border-radius: 1.5rem;
+    background: var(--back-secondary);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.persian {
+    font-family: Vazirmatn FD, sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+}
+
+.details h2 {
+    margin-bottom: 15px;
+}
+
+.badge {
+    width: fit-content;
+    border-radius: 0.5rem;
+    padding: 0 5px 0 5px;
+    margin: 0 5px 0 5px;
+}
+
+.dateTime {
+    background: lightgray;
+}
+
+.description {
+    flex: 1;
+    max-height: 70vh;
+    margin: 0 20px 20px 20px;
+    overflow: overlay;
+}
