@@ -15,41 +15,67 @@ import Load from '../Load/Load';
 
 import './PollPage.css'
 import { Skeleton } from '@mui/material';
+import useAuth from '../../hooks/useAuth';
+import Locked from './Locked';
+
+
+
+function canSeeDetails(pollData, auth) {
+  if (auth?.role.includes("admin")) {
+    return true;
+  } else {
+    if (pollData?.show === "hidden") {
+      return false;
+    } else if ((pollData?.show === "after_finish" && Date.parse(pollData?.end_time) > new Date())) {
+      return false;
+    } else if (Date.parse(pollData?.access_time) > new Date()) {
+      return false;
+    }
+  }
+  return true;
+} 
 
 
 function PollPage() {
   const axiosPrivate = useAxiosPrivate();
   const {slug} = useParams();
+  const { auth } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
   const [details, setDetails] = useState({});
+  const [locked, setLocked] = useState(false);
+
 
   useEffect(() => {
     const fetchPoll = async () => {
       setLoading(true);
-      await axiosPrivate.get(urls.getDetails(slug))
-        .then((response) => {
-          setDetails(response.data)
-          return response;
-        })
-        .catch(handleErrAxios)
-      
+      setLocked(false);
       await axiosPrivate.get(urls.getPoll(slug))
-        .then((response) => {
-          setData(response.data)
-          return response;
-        })
-        .catch(handleErrAxios)
-      
-      setLoading(false);
+      .then((response) => {
+        setData(response.data);
+        let canSee = canSeeDetails(response.data, auth);
+        setLocked(!canSee);
+        if (canSee) {
+          axiosPrivate.get(urls.getDetails(slug))
+            .then((response) => {
+              setLoading(false);
+              setDetails(response.data)
+              return response;
+            })
+            .catch(handleErrAxios)
+        }
+        return response;
+      })
+      .catch(handleErrAxios)
     }
     
     fetchPoll();
   }, [slug])
 
   return (
-    <div className="PollPage">
+    <div className={locked?"PollPage LockedPage":"PollPage"}>
+      {locked?<Locked />:<>
       <div className='details'>
         {loading
           ?<Skeleton variant='text' sx={{fontSize: '4.5rem', width:'58%'}} />
@@ -82,9 +108,9 @@ function PollPage() {
         }
         
       </div>
-      <div>
+      <div className="Actions">
         
-      </div>
+      </div></>}
     </div>
   )
 }

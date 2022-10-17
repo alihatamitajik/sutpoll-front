@@ -52,6 +52,12 @@
     align-items: center;
 }
 
+.PollItem > span > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 
 /* Pagination */

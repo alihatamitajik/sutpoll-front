@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Skeleton } from '@mui/material';
+import { Skeleton, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { urls } from '../../api/urls';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
@@ -12,11 +12,6 @@ import { UilCheckCircle, UilCircle } from '@iconscout/react-unicons'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import './Polls.css'
-
-
-function ItemSkeleton() {
-
-}
 
 function PollItem({slug, redirectTo}) {
   const axiosPrivate = useAxiosPrivate();
@@ -54,7 +49,9 @@ function PollItem({slug, redirectTo}) {
         <span>
           {loading
           ?<Skeleton variant='circular' width={30} height={30}/> 
-          : data.has_voted? <UilCheckCircle />: <UilCircle />}
+          : data.has_voted
+            ? <Tooltip placement='top' title="رای داده‌اید"><div><UilCheckCircle /></div></Tooltip>
+            : <Tooltip placement='top' title="رای شما ثبت نشده"><div><UilCircle /></div></Tooltip>}
           {loading
           ?<Skeleton variant='text' width={'100%'} sx={{fontSize: '3rem'}}/>
           :<h2>{data.title}</h2>}
