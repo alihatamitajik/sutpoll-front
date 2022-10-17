@@ -4,7 +4,10 @@ import { ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css";
 import { Outlet, Routes, Route } from 'react-router-dom';
 
+
 import './App.css';
+import 'vazirmatn/misc/Farsi-Digits/Vazirmatn-FD-font-face.css'
+import 'vazirmatn/Vazirmatn-font-face.css'
 
 import Login from './components/Login/Login';
 import Oops from './components/Oops';

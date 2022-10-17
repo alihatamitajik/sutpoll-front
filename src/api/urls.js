@@ -10,6 +10,6 @@ export const urls = {
 }
 
 export const redirects = {
-    poll_page: (slug) => `/poll/${slug}`,
+    poll_page: (slug) => `/polls/${slug}`,
     manage_poll: (slug) => `/admin/manage/${slug}`
 }

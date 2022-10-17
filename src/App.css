@@ -13,12 +13,11 @@
   --focus: black;
   --err: red;
   --alert-red:  rgb(228, 83, 83);
-  --primary: blue;
-  --secondary: red;
   --font: Vazirmatn, sans-serif;
   --toastify-font-family: var(--font)!important;
   --loading: rgba(0, 0, 0, 0.2);
-  --load-spinner: #fff
+  --load-spinner: #fff;
+  --active: rgba(0, 0, 0, 0.3);
 }
 
 .App {

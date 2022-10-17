@@ -13,6 +13,7 @@ import { ReactComponent as LoginHeader } from '../../imgs/LoginHeader.svg'
 import axios from '../../api/axios'
 import useAuth from '../../hooks/useAuth';
 import { urls } from '../../api/urls';
+import { handleErrAxios } from '../../utils/err.util';
 
 function Login() {
 
@@ -45,7 +46,6 @@ function Login() {
             setAuth({studentNumber: formData.studentNumber, token, role: [role]})
             navigate(from, {replace: true});
         } catch (err) {
-            console.log(err);
             if (!err?.response) {
                 toast.update(id, {render: "سرور مورد نظر در حال حاضر قادر به پاسخگویی نمی‌باشد :)", type: "error", isLoading: false, autoClose: 3000})
             } else if (err?.response?.data?.error) {
