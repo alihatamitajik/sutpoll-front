@@ -22,12 +22,21 @@ import {DatePicker} from "@mui/x-date-pickers";
 import { CREATE_POLL_URL} from "../../api/axios";
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { urls } from '../../api/urls';
+import { toast } from 'react-toastify';
+
+export function standardTime(date) {
+    let hh = (date.getHours()).toLocaleString('en-US', { minimumIntegerDigits: 2,useGrouping: false});
+    let mm = (date.getMinutes()).toLocaleString('en-US', { minimumIntegerDigits: 2,useGrouping: false});
+    let ss = (date.getSeconds()).toLocaleString('en-US', { minimumIntegerDigits: 2,useGrouping: false});
+
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${hh}:${mm}:${ss}`
+}
 
 function Create() {
 
     const axiosPrivate = useAxiosPrivate();
 
-    const [data, setData] = React.useState({
+    const INITIAL_DATA = {
         title: '',
         description: '',
         is_multi_option: false,
@@ -35,7 +44,9 @@ function Create() {
         end_time: new Date(),
         show_mode: '',
         options: []
-    });
+    };
+
+    const [data, setData] = React.useState(INITIAL_DATA);
 
     const [option, setOption] = React.useState('')
     const [error, setError] = React.useState({
@@ -61,12 +72,24 @@ function Create() {
     const onSubmit = async () => {
         if(!checkRequiredFields())
             return
-        console.log(JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}));
-        const response = await axiosPrivate.post(urls.createPoll(), JSON.stringify({...data, access_time: "2022-10-5", end_time: "2022-12-5"}))
-            .catch((err) => {
-                console.log(err?.config)
+        
+        const id = toast.loading("در حال ثبت اطلاعات...")
+
+        await axiosPrivate.post(urls.createPoll(), JSON.stringify({...data, access_time: standardTime(new Date(data.access_time)), end_time: standardTime(new Date(data.end_time))}))
+            .then(response => {
+                toast.update(id, {type:"success", render:"با موفقیت ساخته‌ شد", isLoading: false, autoClose: 3000});
+                return response;
             })
-        console.log(response)
+            .catch((err) => {
+                if (!err?.response) {
+                    toast.update(id, {render: "سرور مورد نظر در حال حاضر قادر به پاسخگویی نمی‌باشد :)", type: "error", isLoading: false, autoClose: 3000})
+                } else if (err?.response?.data?.error) {
+                    toast.update(id, {render: err?.response?.data?.error, type: "error", isLoading: false, autoClose: 3000})
+                } else {
+                    toast.update(id, {render: "به توسعه‌دهنده مراجعه کنید 😨", type: "error", isLoading: false, autoClose: 3000})
+                }
+                return err;
+            })
     }
 
     const checkRequiredFields = () => {
