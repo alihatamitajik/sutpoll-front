@@ -52,11 +52,11 @@ function PollPage() {
     <div className="PollPage">
       <div className='details'>
         {loading
-          ?<Skeleton variant='text' sx={{fontSize: '4rem'}} />
+          ?<Skeleton variant='text' sx={{fontSize: '4.5rem', width:'58%'}} />
           :<h1>موضوع: {details.title}</h1>
         }
         {loading
-          ?<Skeleton variant='text' sx={{fontSize: '2rem'}} />
+          ?<Skeleton variant='text' sx={{fontSize: '2.5rem', width:'45%'}} />
           :<span className="persian">
           <span style={{margin: "0 0 0 15px"}}><UilCalendarAlt /></span>
         از <span className='badge dateTime'>{stringifyJalali(details.access_time)}</span> تا <span className='badge dateTime'>{stringifyJalali(details.end_time)}</span> 
@@ -66,13 +66,24 @@ function PollPage() {
                 ? "(منقضی شده)"
                 : ""}</span>
         }
-        <h2>توضیحات</h2>
-        <ReactMarkdown className="description">
-          {details.description}
-        </ReactMarkdown>
+        {loading?<Skeleton variant='text' sx={{fontSize: '2.5rem', width:'63%'}} />:<h2>توضیحات</h2>}
+        {loading? 
+            <>
+            <Skeleton variant='text' sx={{fontSize: '1.5rem'}} />
+            <Skeleton variant='text' sx={{fontSize: '1.5rem'}} />
+            <Skeleton variant='text' sx={{fontSize: '1.5rem'}} />
+            <Skeleton variant='text' sx={{fontSize: '1.5rem'}} />
+            <Skeleton variant='text' sx={{fontSize: '1.5rem'}} />
+            <Skeleton variant='text' sx={{fontSize: '1.5rem', width:'50%'}} />
+            </>
+            :<ReactMarkdown className="description">
+            {details.description}
+          </ReactMarkdown>
+        }
+        
       </div>
       <div>
-        {JSON.stringify(details)}
+        
       </div>
     </div>
   )
