@@ -12,6 +12,7 @@ import './Polls.css'
 import PollItem from './PollItem';
 import ReactPaginate from 'react-paginate';
 import { UilArrowCircleLeft,UilArrowCircleRight } from '@iconscout/react-unicons'
+import { Pagination } from '@mui/material';
 
 function Polls({redirectTo}) {
 
@@ -30,6 +31,7 @@ function Polls({redirectTo}) {
       await axiosPrivate.get(urls.allPolls(currPage, postPerPage))
         .then((response) => {
           setPolls(response.data.data);
+          console.log(response.data);
           setPageCount(response.data.meta.last_page);
           return response;
         })
@@ -40,9 +42,8 @@ function Polls({redirectTo}) {
     fetchPosts();
   }, [currPage])
 
-
-  const handlePageClick = (e) => {
-    setCurrPage(e.selected + 1);
+  const handleChange = (event, page) => {
+    setCurrPage(page);
   }
 
 
@@ -50,21 +51,7 @@ function Polls({redirectTo}) {
     <div className="Polls">
         <h1>رای‌گیری‌ها</h1>
         <PollsList slugs={polls} redirectTo={redirectTo} loading={loading}/>
-        <ReactPaginate
-            breakLabel="..."
-            nextLabel={<UilArrowCircleRight />}
-            onPageChange={handlePageClick}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={1}
-            pageCount={pageCount}
-            previousLabel={<UilArrowCircleLeft  />}
-            renderOnZeroPageCount={null}
-            containerClassName="pagination"
-            pageLinkClassName="pageNum"
-            previousLinkClassName="pageNum"
-            nextLinkClassName="pageNum"
-            activeLinkClassName="active"
-          />
+        <div dir='rtl'><Pagination count={pageCount} page={currPage} onChange={handleChange} /></div>
     </div>
   )
 }

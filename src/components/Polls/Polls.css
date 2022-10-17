@@ -58,49 +58,6 @@
     justify-content: center;
 }
 
-
-
-/* Pagination */
-.pagination {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    gap: 15px;
-    direction: ltr;
-    font-family: Vazirmatn FD;
-    font-size: large;
-    font-weight: 500;
-}
-
-.pageNum {
-    cursor: pointer;
-    border-radius: 2rem;
-    transition: all 120ms ease-in;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pageNum:hover {
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 50%;
-    background-color: var(--hover);
-    color: white;
-}
-
-.active {
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
-    border-radius: 50%;
-    background-color: var(--active);
-    color: white;
-}
-
 .badge {
     width: fit-content;
     border-radius: 0.5rem;
