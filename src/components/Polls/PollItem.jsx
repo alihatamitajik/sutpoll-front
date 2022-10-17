@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react'
 import { urls } from '../../api/urls';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { handleErrAxios } from '../../utils/err.util';
-import { UilCheckCircle } from '@iconscout/react-unicons'
+import { UilCheckCircle, UilCircle } from '@iconscout/react-unicons'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import './Polls.css'
@@ -54,21 +54,19 @@ function PollItem({slug, redirectTo}) {
         <span>
           {loading
           ?<Skeleton variant='circular' width={30} height={30}/> 
-          :<UilCheckCircle />}
+          : data.has_voted? <UilCheckCircle />: <UilCircle />}
           {loading
           ?<Skeleton variant='text' width={'100%'} sx={{fontSize: '3rem'}}/>
           :<h2>{data.title}</h2>}
         </span>
         {loading
           ?<Skeleton variant='text' sx={{fontSize: '1rem'}}/>
-          :<span>
-            {Date.now() < Date.parse(data.access_time)
-              ? "آغاز نشده"
+          :Date.now() < Date.parse(data.access_time)
+              ? <span className='badge' style={{background: "gray"}}>آغاز نشده</span>
               : Date.now() > Date.parse(data.end_time)
-                ? "به پایان رسیده"
-                : "در حال برگزاری"
+                ? <span className='badge' style={{background: "lightcoral"}}>به پایان رسیده</span>
+                : <span className='badge' style={{background: "lightgreen"}}>در حال برگزاری</span>
             }
-          </span>}
     </div>
   )
 }

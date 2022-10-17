@@ -6,7 +6,8 @@ export const urls = {
     createPoll: () => BASE_URL + '/poll/create',
     allPolls: (page, size) => BASE_URL + `/poll/list?page=${page}&size=${size}`,
     pollResults: (slug) => BASE_URL + `/poll/${slug}/results`,
-    vote: () => BASE_URL + '/vote'
+    vote: () => BASE_URL + '/vote',
+    getDetails: (slug) => BASE_URL + `/poll/details/${slug}`
 }
 
 export const redirects = {
