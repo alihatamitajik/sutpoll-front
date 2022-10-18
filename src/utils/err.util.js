@@ -13,5 +13,5 @@ export const handleErrAxios = (err) => {
     } else {
         toast.error("به توسعه‌دهنده مراجعه کنید 😨")
     }
-    return Promise.reject(err);
+    return Promise.resolve(err);
 }

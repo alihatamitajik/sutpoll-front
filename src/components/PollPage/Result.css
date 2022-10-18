@@ -1,0 +1,18 @@
+/**
+ * Copyright (c) 2022 Ali Hatami
+ * 
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+
+ .Result {
+    padding: 1rem 2rem ;
+    background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 1.5rem;
+    max-width: 30vw;
+    color: white;
+ }

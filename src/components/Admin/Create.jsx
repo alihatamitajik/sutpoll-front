@@ -19,7 +19,6 @@ import {
     TextField, FormHelperText
 } from "@mui/material";
 import {DatePicker} from "@mui/x-date-pickers";
-import { CREATE_POLL_URL} from "../../api/axios";
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { urls } from '../../api/urls';
 import { toast } from 'react-toastify';

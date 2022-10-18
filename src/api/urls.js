@@ -1,4 +1,5 @@
-const BASE_URL = 'https://polls.taha7900.ir/api';
+// const BASE_URL = 'https://polls.taha7900.ir/api';
+const BASE_URL = 'http://localhost:3500/api';
 
 export const urls = {
     login: () => BASE_URL + '/auth/login',

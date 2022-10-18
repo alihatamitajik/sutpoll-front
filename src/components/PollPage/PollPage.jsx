@@ -12,11 +12,14 @@ import { handleErrAxios } from '../../utils/err.util';
 import {UilCalendarAlt} from '@iconscout/react-unicons'
 import ReactMarkdown from 'react-markdown';
 import Load from '../Load/Load';
+import { motion } from 'framer-motion';
 
 import './PollPage.css'
 import { Skeleton } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import Locked from './Locked';
+import Vote from './Vote';
+import Result from './Result';
 
 
 
@@ -24,11 +27,7 @@ function canSeeDetails(pollData, auth) {
   if (auth?.role.includes("admin")) {
     return true;
   } else {
-    if (pollData?.show === "hidden") {
-      return false;
-    } else if ((pollData?.show === "after_finish" && Date.parse(pollData?.end_time) > new Date())) {
-      return false;
-    } else if (Date.parse(pollData?.access_time) > new Date()) {
+    if (Date.parse(pollData?.access_time) > new Date()) {
       return false;
     }
   }
@@ -60,6 +59,7 @@ function PollPage() {
           axiosPrivate.get(urls.getDetails(slug))
             .then((response) => {
               setLoading(false);
+              console.log(response.data);
               setDetails(response.data)
               return response;
             })
@@ -109,8 +109,10 @@ function PollPage() {
         
       </div>
       <div className="Actions">
-        
-      </div></>}
+        <Vote details={details} loading={loading}/>
+        <Result loading={loading} slug={slug} show={data.show}/>
+      </div>
+      </>}
     </div>
   )
 }
