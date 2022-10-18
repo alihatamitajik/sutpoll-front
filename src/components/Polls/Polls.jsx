@@ -36,7 +36,7 @@ function Polls({redirectTo}) {
           return response;
         })
         .catch(handleErrAxios)
-        .finally(() => {setLoading(false);})
+      setLoading(false);
     }
 
     fetchPosts();

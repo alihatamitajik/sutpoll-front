@@ -11,8 +11,6 @@ import { stringifyJalali } from '../../utils/date.util';
 import { handleErrAxios } from '../../utils/err.util';
 import {UilCalendarAlt} from '@iconscout/react-unicons'
 import ReactMarkdown from 'react-markdown';
-import Load from '../Load/Load';
-import { motion } from 'framer-motion';
 
 import './PollPage.css'
 import { Skeleton } from '@mui/material';
@@ -109,7 +107,7 @@ function PollPage() {
         
       </div>
       <div className="Actions">
-        <Vote details={details} loading={loading}/>
+        <Vote details={details} setDetails={setDetails} loading={loading}/>
         <Result loading={loading} slug={slug} show={data.show_mode}/>
       </div>
       </>}

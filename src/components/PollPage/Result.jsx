@@ -76,8 +76,7 @@ function Result({show, slug, loading}) {
         {loading
             ?<Skeleton variant='text' width={'60%'} sx={{fontSize: '3rem'}}/> 
             :<motion.h2 layout="position">نتایج</motion.h2>}
-        {isOpen && !loading &&  <>{show === "show" || auth?.role === "admin"
-            ? <ShowResultPie slug={slug} />
+        {isOpen && !loading &&  <>{show === "show" || auth?.role.includes("admin")            ? <ShowResultPie slug={slug} />
             :show === "after_finish"
                 ? <><motion.img src={wait} alt="You should wait for it!" style={{
                 maxHeight: '60%',

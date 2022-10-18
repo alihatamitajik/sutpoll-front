@@ -28,6 +28,7 @@ function PollItem({slug, redirectTo}) {
       await axiosPrivate.get(urls.getPoll(slug))
         .then((response) => {
           setData(response.data)
+          console.log(response.data);
           return response;
         })
         .catch(handleErrAxios)
@@ -53,7 +54,7 @@ function PollItem({slug, redirectTo}) {
             ? <Tooltip placement='top' title="رای داده‌اید"><div><UilCheckCircle /></div></Tooltip>
             : <Tooltip placement='top' title="رای شما ثبت نشده"><div><UilCircle /></div></Tooltip>}
           {loading
-          ?<Skeleton variant='text' width={'100%'} sx={{fontSize: '3rem'}}/>
+          ?<Skeleton variant='text' width={'60%'} sx={{fontSize: '3rem'}}/>
           :<h2>{data.title}</h2>}
         </span>
         {loading
