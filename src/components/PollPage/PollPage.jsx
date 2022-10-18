@@ -110,7 +110,7 @@ function PollPage() {
       </div>
       <div className="Actions">
         <Vote details={details} loading={loading}/>
-        <Result loading={loading} slug={slug} show={data.show}/>
+        <Result loading={loading} slug={slug} show={data.show_mode}/>
       </div>
       </>}
     </div>

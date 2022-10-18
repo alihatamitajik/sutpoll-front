@@ -14,13 +14,28 @@ import wait from '../../imgs/wait.svg'
 import lock from '../../imgs/locked.svg'
 import { urls } from '../../api/urls';
 import { handleErrAxios } from '../../utils/err.util';
+import Load from '../Load/Load';
+import Chart from 'react-apexcharts';
+import { height } from '@mui/system';
 
 
 function ShowResultPie({slug}) {
 
     const [loading, setLoading] = useState(false);
     const axiosPrivate = useAxiosPrivate();
-    const [data, setData] = useState({});
+    const [series, setSeries] = useState([]);
+    const [labels, setLabels] = useState([]);
+
+    const options = {
+        labels: labels,
+        chart: {
+          type: 'donut',
+          fontFamily: 'Vazirmatn FD, sans-serif'
+        },
+        legend: {
+            show: false
+        }
+    }
 
     useEffect(() => {
         const fetchPoll = async () => {
@@ -28,17 +43,24 @@ function ShowResultPie({slug}) {
             await axiosPrivate.get(urls.pollResults(slug))
             .then((response) => {
                 console.log(response.data);
-              setData(response.data);
+              setSeries(response.data.map(x => x.total_count))
+              setLabels(response.data.map(x => x.text))
               return response;
             })
             .catch(handleErrAxios)
+
+            setLoading(false);
           }
           
           fetchPoll();
     }, [slug])
 
     return (
-        <div>Result Pie</div>
+        <>{
+            loading
+                ? <Load />
+                : <Chart series={series} options={options} type="donut" />
+        }</>
     )
 }
 
