@@ -23,8 +23,6 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state?.from?.pathname || "/";
-    console.log(location);
-
 
     async function handleSubmit(e) {
         e.preventDefault();
