@@ -17,6 +17,7 @@ import { handleErrAxios } from '../../utils/err.util';
 import Load from '../Load/Load';
 import Chart from 'react-apexcharts';
 import { height } from '@mui/system';
+import useAuth from '../../hooks/useAuth';
 
 
 function ShowResultPie({slug}) {
@@ -68,14 +69,17 @@ function ShowResultPie({slug}) {
 function Result({show, slug, loading}) {
     const axiosPrivate = useAxiosPrivate();
     const [isOpen, setIsOpen] = useState(false);
+    const { auth } = useAuth();
 
   return (
     <motion.div layout className="Result" onClick={() => setIsOpen(!isOpen)}>
         {loading
             ?<Skeleton variant='text' width={'60%'} sx={{fontSize: '3rem'}}/> 
             :<motion.h2 layout="position">نتایج</motion.h2>}
-        {isOpen && !loading &&  <>{show === "after_finish"
-            ? <><motion.img src={wait} alt="You should wait for it!" style={{
+        {isOpen && !loading &&  <>{show === "show" || auth?.role === "admin"
+            ? <ShowResultPie slug={slug} />
+            :show === "after_finish"
+                ? <><motion.img src={wait} alt="You should wait for it!" style={{
                 maxHeight: '60%',
                 maxWidth: '60%',
                 height: 'auto',
@@ -83,8 +87,7 @@ function Result({show, slug, loading}) {
                 }}/> 
                 <motion.h3>برای دیدن نتایج تا پایان رای‌گیری باید صبر کنید.</motion.h3>
                 </>
-            :show === "hidden"
-                ? <><motion.img src={lock} alt="You Can't!" style={{
+            :<><motion.img src={lock} alt="You Can't!" style={{
                     maxHeight: '60%',
                     maxWidth: '60%',
                     height: 'auto',
@@ -92,7 +95,6 @@ function Result({show, slug, loading}) {
                     }}/> 
                     <motion.h3>شرکت‌کنندگان قادر به دیدن نتایج نیستند.</motion.h3>
                     </>
-                : <ShowResultPie slug={slug} />
             }</>}
     </motion.div>
   )
