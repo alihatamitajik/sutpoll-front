@@ -10,6 +10,12 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { handleErrAxios } from '../../utils/err.util';
 import { UilCheckCircle, UilCircle } from '@iconscout/react-unicons'
 import { useLocation, useNavigate } from 'react-router-dom';
+import EventBusyIcon from '@mui/icons-material/EventBusy';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import LockIcon from '@mui/icons-material/Lock';
 
 import './Polls.css'
 
@@ -59,16 +65,20 @@ function PollItem({slug, redirectTo}) {
         </span>
         <div className='chipContainer'>
         {loading
-          ?<Skeleton variant='text' sx={{fontSize: '2rem'}}/>
+          ?<Skeleton variant='text' width={'100%'} sx={{fontSize: '1.5rem'}}/>
           :Date.now() < Date.parse(data.access_time)
-              ? <Chip label="آغاز نشده"/>
+              ? <Chip variant='outlined' label="آغاز نشده" icon={<ScheduleIcon />}/>
               : Date.now() > Date.parse(data.end_time)
-                ? <Chip label="منقضی شده"/>
-                : <Chip label="در حال برگزاری"/>
+                ? <Chip variant='outlined' label="منقضی شده" icon={<EventBusyIcon />}/>
+                : <Chip variant='outlined' label="در حال برگزاری" icon={<EventAvailableIcon />}/>
         }
         {
           loading?<></>
-          :<></>
+          :data.show_mode === "show"
+            ? <Chip variant='outlined' label="نتیجه پس از رای" icon={<VisibilityIcon />}/>
+            :data.show_mode === "after_finish"
+              ? <Chip variant='outlined' label="نتیجه پس از  پایان" icon={<VisibilityOffIcon />}/>
+              : <Chip variant='outlined' label="نتیجه نامشخص" icon={<LockIcon />}/>
         }
         </div>
     </div>
