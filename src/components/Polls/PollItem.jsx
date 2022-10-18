@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Skeleton, Tooltip } from '@mui/material';
+import { Chip, Skeleton, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { urls } from '../../api/urls';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
@@ -57,14 +57,20 @@ function PollItem({slug, redirectTo}) {
           ?<Skeleton variant='text' width={'60%'} sx={{fontSize: '3rem'}}/>
           :<h2>{data.title}</h2>}
         </span>
+        <div className='chipContainer'>
         {loading
-          ?<Skeleton variant='text' sx={{fontSize: '1rem'}}/>
+          ?<Skeleton variant='text' sx={{fontSize: '2rem'}}/>
           :Date.now() < Date.parse(data.access_time)
-              ? <span className='badge' style={{background: "gray"}}>آغاز نشده</span>
+              ? <Chip label="آغاز نشده"/>
               : Date.now() > Date.parse(data.end_time)
-                ? <span className='badge' style={{background: "lightcoral"}}>منقضی شده</span>
-                : <span className='badge' style={{background: "lightgreen"}}>در حال برگزاری</span>
-            }
+                ? <Chip label="منقضی شده"/>
+                : <Chip label="در حال برگزاری"/>
+        }
+        {
+          loading?<></>
+          :<></>
+        }
+        </div>
     </div>
   )
 }

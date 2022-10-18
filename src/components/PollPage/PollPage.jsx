@@ -11,13 +11,15 @@ import { stringifyJalali } from '../../utils/date.util';
 import { handleErrAxios } from '../../utils/err.util';
 import {UilCalendarAlt} from '@iconscout/react-unicons'
 import ReactMarkdown from 'react-markdown';
+import ShareIcon from '@mui/icons-material/Share';
 
 import './PollPage.css'
-import { Skeleton } from '@mui/material';
+import { IconButton, Skeleton } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import Locked from './Locked';
 import Vote from './Vote';
 import Result from './Result';
+import { toast } from 'react-toastify';
 
 
 
@@ -77,18 +79,26 @@ function PollPage() {
       <div className='details'>
         {loading
           ?<Skeleton variant='text' sx={{fontSize: '4.5rem', width:'58%'}} />
-          :<h1>موضوع: {details.title}</h1>
+          :
+            <h1>موضوع: {details.title}</h1>
         }
         {loading
           ?<Skeleton variant='text' sx={{fontSize: '2.5rem', width:'45%'}} />
-          :<span className="persian">
+          :<div className="persian">
           <span style={{margin: "0 0 0 15px"}}><UilCalendarAlt /></span>
-        از <span className='badge dateTime'>{stringifyJalali(details.access_time)}</span> تا <span className='badge dateTime'>{stringifyJalali(details.end_time)}</span> 
+        از <span className='badge dateTime'>{stringifyJalali(details.access_time)}</span> تا <span className='badge dateTime'>{stringifyJalali(details.end_time)}</span>
         {Date.now() < Date.parse(data.access_time)
           ? "(آغاز نشده)"
               : Date.now() > Date.parse(data.end_time)
                 ? "(منقضی شده)"
-                : ""}</span>
+                : ""}
+            <IconButton onClick={() => {
+              navigator.clipboard.writeText(window.location.origin + `/polls/${slug}`);
+              toast.info("در کلیپ‌بورد ذخیره شد.")
+            }}>
+              <ShareIcon />
+            </IconButton>
+          </div>
         }
         {loading?<Skeleton variant='text' sx={{fontSize: '2.5rem', width:'63%'}} />:<h2>توضیحات</h2>}
         {loading? 
@@ -108,7 +118,7 @@ function PollPage() {
       </div>
       <div className="Actions">
         <Vote details={details} setDetails={setDetails} loading={loading}/>
-        <Result loading={loading} slug={slug} show={data.show_mode}/>
+        <Result loading={loading} slug={slug} show={data.show_mode} can_view={data.can_view}/>
       </div>
       </>}
     </div>

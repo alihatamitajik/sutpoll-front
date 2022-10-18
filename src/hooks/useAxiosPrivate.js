@@ -21,7 +21,7 @@ const useAxiosPrivate = () => {
                 }
                 return config;
             }, (error) => {
-                Promise.reject(error)
+                return Promise.reject(error)
             }
         );
 
@@ -32,6 +32,8 @@ const useAxiosPrivate = () => {
                 if (error?.response?.status === 403 || error?.response?.status === 401) {
                     navigate('/login', {state: {from: location}, replace: true});
                 }
+                
+                return Promise.reject(error)
             }
         )
 

@@ -66,17 +66,16 @@ function ShowResultPie({slug}) {
 }
 
 
-function Result({show, slug, loading}) {
-    const axiosPrivate = useAxiosPrivate();
+function Result({show, slug, loading, can_view}) {
     const [isOpen, setIsOpen] = useState(false);
-    const { auth } = useAuth();
 
   return (
     <motion.div layout className="Result" onClick={() => setIsOpen(!isOpen)}>
         {loading
             ?<Skeleton variant='text' width={'60%'} sx={{fontSize: '3rem'}}/> 
             :<motion.h2 layout="position">نتایج</motion.h2>}
-        {isOpen && !loading &&  <>{show === "show" || auth?.role.includes("admin")            ? <ShowResultPie slug={slug} />
+        {isOpen && !loading &&  <>      
+            {can_view? <ShowResultPie slug={slug} />
             :show === "after_finish"
                 ? <><motion.img src={wait} alt="You should wait for it!" style={{
                 maxHeight: '60%',

@@ -13,14 +13,17 @@ import PollItem from './PollItem';
 import ReactPaginate from 'react-paginate';
 import { UilArrowCircleLeft,UilArrowCircleRight } from '@iconscout/react-unicons'
 import { Pagination } from '@mui/material';
-
+import { useSearchParams } from 'react-router-dom';
 function Polls({redirectTo}) {
 
   const axiosPrivate = useAxiosPrivate();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currPage = searchParams.get("page")??1;
+
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [currPage, setCurrPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(5);
   const [pageCount, setPageCount] = useState(1);
 
@@ -43,7 +46,7 @@ function Polls({redirectTo}) {
   }, [currPage])
 
   const handleChange = (event, page) => {
-    setCurrPage(page);
+    setSearchParams({"page":page});
   }
 
 

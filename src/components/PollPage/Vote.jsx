@@ -9,9 +9,8 @@ import { motion  } from 'framer-motion';
 
 import './Vote.css'
 import done from '../../imgs/Done.svg'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, Skeleton } from '@mui/material';
+import { Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, FormGroup, FormLabel, Radio, RadioGroup, Skeleton } from '@mui/material';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-import { CheckBox } from '@mui/icons-material';
 import { urls } from '../../api/urls';
 import { toast } from 'react-toastify';
 
@@ -35,7 +34,8 @@ function Vote({details, setDetails, loading}) {
         let votes = [];
 
         if (details.is_multi_option) {
-            for (var option in Object.keys(multiChecked)) {
+            for (var option of Object.keys(multiChecked)) {
+                console.log(option, multiChecked[option]);
                 if (multiChecked[option])
                     votes.push(option)
             }
@@ -43,17 +43,18 @@ function Vote({details, setDetails, loading}) {
             votes.push(vote);
         }
 
-        console.log(details.options)
-        console.log(votes)
+        console.log("votes", votes)
 
         const id = toast.loading("در حال ثبت رای");
 
         try {
+            console.log({poll_slug:details.slug, options: votes});
             await axiosPrivate.post(urls.vote(), JSON.stringify({poll_slug:details.slug, options: votes}));
             toast.update(id, {render: "رای با موفقیت ثبت شد.", type: "success", isLoading: false, autoClose: 3000})
             setDetails({...details, has_voted: true})
         } catch (err) {
-            if (!err?.response) {
+            console.log(err);
+            if (!err.response) {
                 toast.update(id, {render: "سرور مورد نظر در حال حاضر قادر به پاسخگویی نمی‌باشد :)", type: "error", isLoading: false, autoClose: 3000})
             } else if (err?.response?.data?.error) {
                 toast.update(id, {render: err?.response?.data?.error, type: "error", isLoading: false, autoClose: 3000})
@@ -71,8 +72,8 @@ function Vote({details, setDetails, loading}) {
         /* validate */
         event.preventDefault()
         if (details.is_multi_option) {
-            if (event.target.checked) {
-                console.log(event.target.value);
+            if (!Object.values(multiChecked).every(value => value === false)) {
+                setIsDialogOpen(true);
             }
         } else {
             if (vote === -1) {
@@ -84,8 +85,10 @@ function Vote({details, setDetails, loading}) {
     }
 
     const handleMultiChange = (event) => {
-        console.log(event.target.checked);
+        setMultiChecked({...multiChecked, [event.target.value]:event.target.checked})
     }
+
+    const error = Object.values(multiChecked).every(value => value === false);
 
     const handleRadioChange = (event) => {
         setVote(event.target.value);
@@ -105,14 +108,14 @@ function Vote({details, setDetails, loading}) {
                 width: 'auto'
                 }}/>
             :<motion.div className="voteForm" onClick={(event) => event.stopPropagation()}>
-                <FormControl required error={err}>
+                <FormControl required error={details.is_multi_option? error:err}>
                 {details.is_multi_option
                     ? <>
                         <FormLabel id='group-label'>یک یا چند گزینه را انتخاب  کنید:</FormLabel>
                         <FormGroup aria-labelledby='group-label'>
                             {details.options.map((opt, id) => 
                                 <FormControlLabel key={id} value={opt.id} control={
-                                    <CheckBox />}
+                                    <Checkbox checked={multiChecked[opt.id]} onChange={handleMultiChange}/>}
                                 label={opt.text} />
                             )}
                         </FormGroup>

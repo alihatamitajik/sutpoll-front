@@ -31,6 +31,11 @@
     flex-direction: column;
 }
 
+.subject {
+    display: flex;
+    flex-direction: row;
+}
+
 .details h2 {
     margin-bottom: 15px;
 }
